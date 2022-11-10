@@ -6,12 +6,14 @@ public class Test : MonoBehaviour
 {
     private void Awake()
     {
-        AppMetrica.Instance.SetLocationTracking(true); //Application.systemLanguage
+        AppMetrica.Instance.SetLocationTracking(true); //Application.systemLanguage   SystemInfo.deviceUniqueIdentifier
 
         YandexAppMetricaUserProfile userProfile = new YandexAppMetricaUserProfile();
+        YandexAppMetricaStringAttribute newAttribute = new YandexAppMetricaStringAttribute("testLang");
 
-        userProfile = userProfile.Apply(YandexAppMetricaStringAttribute.WithValue($"lang - {Application.systemLanguage}"));
-        AppMetrica.Instance.ReportUserProfile();
+        userProfile = userProfile.Apply(newAttribute.WithValue($"lang - {SystemInfo.deviceUniqueIdentifier}"));
+   
+        AppMetrica.Instance.ReportUserProfile(userProfile);
     }
 
 }
